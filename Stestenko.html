@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Палата Геніїв | Богдан Стеценко</title>
+  <style>
+    /* -------------------------------------------------- */
+    /* 1. ШРИФТИ ТА ГЛОБАЛЬНІ СТИЛІ ОФОРМЛЕННЯ            */
+    /* -------------------------------------------------- */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #2d3142;
+      background-color: #f6f8fc;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(243, 232, 255, 0.7) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(224, 242, 254, 0.7) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(220, 252, 231, 0.5) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(255, 247, 237, 0.6) 0px, transparent 50%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    /* -------------------------------------------------- */
+    /* 2. СТИЛІ ВЕРХНЬОЇ ПАНЕЛІ (НАВБАРУ)                 */
+    /* -------------------------------------------------- */
+    .cozy-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 12px 20px;
+      box-sizing: border-box;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+    }
+
+    .cozy-burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      width: 38px;
+      height: 38px;
+      background: rgba(0, 0, 0, 0.03);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .cozy-burger:hover { background: rgba(0, 0, 0, 0.06); }
+    .cozy-burger:active { transform: scale(0.95); }
+
+    .cozy-burger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background-color: #2d3142;
+      border-radius: 2px;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+    }
+
+    .cozy-burger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .cozy-burger.active span:nth-child(2) { opacity: 0; transform: scale(0.5); }
+    .cozy-burger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .cozy-menu-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 12px;
+      right: 12px;
+      background: #ffffff;
+      border-radius: 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .cozy-menu-panel.open {
+      max-height: 500px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+    }
+
+    .cozy-nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .cozy-nav-list li { margin-bottom: 4px; }
+
+    .cozy-nav-list a {
+      display: flex;
+      align-items: center;
+      color: #4c516d;
+      text-decoration: none;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 14px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .cozy-nav-list a:hover {
+      background: #f4f6fa;
+      color: #1e2029;
+    }
+
+    .cozy-icon-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      margin-right: 12px;
+    }
+
+    .cozy-icon-box svg { width: 16px; height: 16px; }
+
+    .icon-purple { background: #f3e8ff; color: #7c3aed; }
+    .icon-orange { background: #fff7ed; color: #f97316; }
+    .icon-blue { background: #e0f2fe; color: #0284c7; }
+    .icon-green { background: #dcfce7; color: #16a34a; }
+
+    .cozy-drop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cozy-drop-header a { flex-grow: 1; }
+
+    .cozy-arrow {
+      background: none;
+      border: none;
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cozy-arrow svg {
+      width: 14px;
+      height: 14px;
+      color: #94a3b8;
+      transition: transform 0.25s ease;
+    }
+
+    .cozy-sub-menu {
+      list-style: none;
+      margin: 0 8px;
+      padding: 0;
+      background: #f8fafc;
+      border-radius: 14px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cozy-sub-menu a {
+      padding: 11px 16px 11px 28px;
+      color: #626784;
+      font-size: 14px;
+    }
+
+    .sub-dot {
+      color: #cbd5e1;
+      margin-right: 8px;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .cozy-dropdown.expanded .cozy-sub-menu {
+      max-height: 180px;
+      padding: 6px 0;
+      margin-bottom: 6px;
+    }
+
+    .cozy-dropdown.expanded .cozy-arrow svg { transform: rotate(180deg); }
+    .cozy-dropdown.expanded:nth-child(1) .cozy-arrow svg { color: #7c3aed; }
+    .cozy-dropdown.expanded:nth-child(2) .cozy-arrow svg { color: #f97316; }
+
+    /* -------------------------------------------------- */
+    /* 3. СТИЛІ ДЛЯ ТІЛА САЙТУ (BODY CONTENT)             */
+    /* -------------------------------------------------- */
+    .site-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100px 20px 60px;
+      box-sizing: border-box;
+    }
+
+    .site-header {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .site-header h1 {
+      font-size: 36px;
+      color: #1e2229;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .site-header p {
+      font-size: 16px;
+      color: #626784;
+      margin: 0;
+    }
+
+    .content-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.02);
+      animation: fadeIn 0.8s ease;
+    }
+
+    /* СТИЛЬ ДЛЯ БЛОКУ З ФОТО */
+    .avatar-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .stetsenko-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+    }
+
+    .card-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .badge-purple { background: #f3e8ff; color: #7c3aed; }
+
+    .content-card h2 {
+      font-size: 24px;
+      color: #1e2029;
+      margin: 0 0 14px 0;
+      font-weight: 600;
+    }
+
+    .content-card p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #4c516d;
+      margin: 0;
+    }
+
+    .funny-poem {
+      font-style: italic;
+      background: #fafafa;
+      border-left: 4px solid #7c3aed;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 12px 12px 0;
+      line-height: 1.8;
+      color: #2d3142;
+    }
+
+    /* -------------------------------------------------- */
+    /* 4. СТИЛЬНА КНОПКА "НА ГОЛОВНУ" (ПІД ТЕКСТОМ)       */
+    /* -------------------------------------------------- */
+    .home-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(110, 68, 255, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    }
+
+    .btn-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(110, 68, 255, 0.35);
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    }
+
+    .btn-home:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba(110, 68, 255, 0.2);
+    }
+
+    .btn-home svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      transition: transform 0.2s;
+    }
+
+    .btn-home:hover svg {
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ МЕНЮ -->
+  <div class="cozy-navbar">
+    <button class="cozy-burger" id="cozyMenuBtn" aria-label="Меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="cozy-menu-panel" id="cozyMenuPanel">
+      <ul class="cozy-nav-list">
+        <li class="cozy-dropdown">
+          <div class="cozy-drop-header">
+            <a href="#">
+              <span class="cozy-icon-box icon-purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              </span>
+              Палата геніїв
+            </a>
+            <button class="cozy-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+          <ul class="cozy-sub-menu">
+            <li><a href="#section1"><span class="sub-dot">•</span> Богдан Стеценко</a></li>
+          </ul>
+        </li>
+
+        <li class="cozy-dropdown">
+          <div class="cozy-drop-header">
+            <a href="#">
+              <span class="cozy-icon-box icon-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </span>
+              Навігація сайту
+            </a>
+            <button class="cozy-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+          <ul class="cozy-sub-menu">
+            <li><a href="#section1"><span class="sub-dot">•</span> Хроніки Стеценка</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">
+            <span class="cozy-icon-box icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </span>
+            Проекти
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <span class="cozy-icon-box icon-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </span>
+            Підтримка
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ОСНОВНИЙ КОНТЕНТ -->
+  <div class="site-container">
+
+    <header class="site-header">
+      <h1>Палата Геніїв</h1>
+      <p>Офіційна сторінка головного мислителя сучасності</p>
+    </header>
+
+    <!-- СЕКЦІЯ БОГДАНА СТЕЦЕНКА -->
+    <section id="section1" class="content-card">
+
+      <!-- МІСЦЕ ДЛЯ ФОТО БОГДАНА (ВСТАВ СЮДИ СВОЄ ПОСИЛАННЯ) -->
+      <div class="avatar-wrapper">
+        <img src="https://i.postimg.cc/6QqSszZn/bogdan-jpg.jpg" alt="Богдан Стеценко" class="stetsenko-photo">
+      </div>
+
+      <div class="card-header-flex">
+        <span class="card-badge badge-purple">Головний Геній</span>
+      </div>
+
+      <h2>Богдан Стеценко</h2>
+
+      <p>
+        Професійний студент, легендарний відпочивальник та людина, яка вміє розбавити будь-яку серйозну лекцію атмосферою рідного села. Його харизма пробиває стіни аудиторії, а голос здатний пробудити навіть викладача.
+      </p>
+
+      <div class="funny-poem">
+        Сидить Стеценко, тихо мріє,<br>
+        Про трактор, поле, свіжий гній.<br>
+        В душі він справжній селючина,<br>
+        Хоч на заняттях — грамотій!<br><br>
+        І тут йшла 60та минута пари і тут вся аудиторія чує: <br>
+        <strong>— АНДРЮХААА!</strong> <br>
+        а це стеценко гука свого поратима селюка.
+      </div>
+
+      <p>
+        Після цього моменту лекція, звісно, була остаточно зірвана, а історія назавжди увійшла в золотий фонд студентських мемів.
+      </p>
+
+      <!-- КНОПКА ПОВЕРНЕННЯ НА ГОЛОВНУ СТОРІНКУ -->
+      <div class="home-button-container">
+        <button class="btn-home" id="btnHome">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+          На головну
+        </button>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- СКРИПТИ ДЛЯ КЕРУВАННЯ МЕНЮ ТА КНОПКОЮ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burgerBtn = document.getElementById('cozyMenuBtn');
+      const menuPanel = document.getElementById('cozyMenuPanel');
+      const dropdowns = document.querySelectorAll('.cozy-dropdown');
+      const btnHome = document.getElementById('btnHome');
+
+      // Керування бургер-меню
+      burgerBtn.addEventListener('click', () => {
+        burgerBtn.classList.toggle('active');
+        menuPanel.classList.toggle('open');
+      });
+
+      dropdowns.forEach(dropdown => {
+        const arrowBtn = dropdown.querySelector('.cozy-arrow');
+        arrowBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          dropdowns.forEach(other => {
+            if (other !== dropdown) other.classList.remove('expanded');
+          });
+          dropdown.classList.toggle('expanded');
+        });
+      });
+
+      const links = menuPanel.querySelectorAll('.cozy-sub-menu a');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          burgerBtn.classList.remove('active');
+          menuPanel.classList.remove('open');
+        });
+      });
+
+      // Плавний скрол на самий верх сайту при натисканні кнопки "На головну"
+      btnHome.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

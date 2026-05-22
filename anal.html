@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Часникові сухарики "Стеценко & Co"</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Bangers&display=swap');
+        <link rel="stylesheet" href="style.css">
+
+        body {
+            background-color: #fef08a; /* Яскраво-жовтий */
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .bangers { font-family: 'Bangers', cursive; }
+
+        .cringe-shadow {
+            text-shadow: 3px 3px 0px #ef4444;
+        }
+
+        .card-hover:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body id="icon" class="text-gray-900">
+
+    <header class="text-center py-10 bg-red-600 text-white shadow-2xl border-b-8 border-yellow-300">
+        <h1 class="bangers text-5xl md:text-7xl cringe-shadow uppercase tracking-widest">
+            СУХАРІ СТЕЦЕНКА
+        </h1>
+        <p class="text-2xl mt-4 font-bold italic">Найхрусткіша легенда Перекопівки та Перехрестівки!</p>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <div class="text-center bg-white p-6 rounded-3xl border-4 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] mb-10">
+            <h2 class="text-3xl font-bold mb-4">Вже з'їдено сухарів за сьогодні:</h2>
+            <div id="crunch-count" class="text-6xl font-black text-red-600 mb-6">42,069</div>
+            <button onclick="addCrunch()" class="bg-yellow-400 hover:bg-yellow-500 border-4 border-black text-black font-black py-4 px-10 text-2xl rounded-full shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] active:translate-y-1">
+                ХРУМНУТИ! 🦷
+            </button>
+        </div>
+
+        <h2 class="bangers text-4xl text-center mb-8 uppercase">Банда Стеценка</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Богдан -->
+<button type="bogdan">
+            <div class="bg-white p-4 border-4 border-black rounded-2xl card-hover shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div class="h-40 bg-red-200 rounded-lg mb-4 flex items-center justify-center text-6xl">👑</div>
+                <h3 class="text-xl font-bold">Богдан Стеценко</h3>
+                <p class="text-sm mt-2">Великий Магістр Сухариків. Бачить часник крізь стіни.</p>
+            </div>
+
+          </button>
+
+            <!-- Андрій -->
+            <div class="bg-white p-4 border-4 border-black rounded-2xl card-hover shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div class="h-40 bg-blue-200 rounded-lg mb-4 flex items-center justify-center text-6xl">🏎️</div>
+                <h3 class="text-xl font-bold">Андрій Большак</h3>
+                <p class="text-sm mt-2">Головний дегустатор та амбасадор "Хрумкого Стилю".</p>
+            </div>
+
+            <!-- Тимофій -->
+            <div class="bg-white p-4 border-4 border-black rounded-2xl card-hover shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div class="h-40 bg-green-200 rounded-lg mb-4 flex items-center justify-center text-6xl">🦷</div>
+                <h3 class="text-xl font-bold">Тимофій Кривозубий</h3>
+                <p class="text-sm mt-2">Стоматолог-рекордсмен. Каже: "Хрустіть на здоров'я, я все виправлю".</p>
+            </div>
+
+            <!-- Калитка -->
+            <div class="bg-white p-4 border-4 border-black rounded-2xl card-hover shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                <div class="h-40 bg-purple-200 rounded-lg mb-4 flex items-center justify-center text-6xl">💰</div>
+                <h3 class="text-xl font-bold">Калитка</h3>
+                <p class="text-sm mt-2">Майстер таємних інгредієнтів. Ніхто не знає, що він туди кладе.</p>
+            </div>
+        </div>
+
+        <div class="mt-16 bg-black text-white p-8 rounded-3xl">
+            <h2 class="bangers text-4xl text-center mb-6 uppercase text-yellow-400">Зона нашого впливу</h2>
+            <div class="flex flex-col md:flex-row justify-around items-center gap-8">
+                <div class="border-2 border-yellow-400 p-6 rounded-full w-48 h-48 flex flex-col items-center justify-center text-center">
+                    <span class="text-4xl">📍</span>
+                    <span class="font-bold text-xl">Перекопівка</span>
+                    <span class="text-xs text-yellow-500">Штаб-квартира</span>
+                </div>
+                <div class="text-4xl">➡️</div>
+                <div class="border-2 border-yellow-400 p-6 rounded-full w-48 h-48 flex flex-col items-center justify-center text-center">
+                    <span class="text-4xl">🚀</span>
+                    <span class="font-bold text-xl">Перехрестівка</span>
+                    <span class="text-xs text-yellow-500">Ринок збуту</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        let count = 42069;
+        const countDisplay = document.getElementById('crunch-count');
+
+        function addCrunch() {
+            count += 1;
+            countDisplay.innerText = count.toLocaleString('uk-UA');
+
+            // Візуальний ефект
+            countDisplay.classList.add('scale-110');
+            setTimeout(() => countDisplay.classList.remove('scale-110'), 100);
+
+            // Імітація звуку через консоль (оскільки аудіо-файли не підтримуються)
+            console.log("ХРУМ-ХРУМ! Богдан Стеценко пишається тобою!");
+        }
+    </script>
+    <div class="cozy-navbar">
+  <!-- Кнопка «Бургер» з м'якою анімацією -->
+  <button class="cozy-burger" id="cozyMenuBtn" aria-label="Меню">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Панель меню з м'якими відступами та закругленнями -->
+  <div class="cozy-menu-panel" id="cozyMenuPanel">
+    <ul class="cozy-nav-list">
+
+      <!-- 1. ПАЛАТА ГЕНІЇВ (З ВИПАДАЮЧИМ СПИСКОМ) -->
+      <li class="cozy-dropdown">
+        <div class="cozy-drop-header">
+          <a href="#">
+            <span class="cozy-icon-box icon-purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </span>
+            Палата геніїв
+          </a>
+          <button class="cozy-arrow" id="cozyArrowBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </div>
+
+        <!-- Внутрішній список з геніями -->
+        <ul class="cozy-sub-menu">
+          <li>
+            <a href="Stestenko.html">
+              <span class="sub-dot">•</span> Богдан Стеценко
+            </a>
+          </li>
+          <li>
+            <a href="Andrii.html">
+              <span class="sub-dot">•</span> Андрій Большак
+            </a>
+          </li>
+          <li>
+            <a href="kaluta.html">
+              <span class="sub-dot">•</span> Тимофій Стоматолог
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- 2. ПРОЕКТИ -->
+      <li>
+        <a href="#">
+          <span class="cozy-icon-box icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          </span>
+          Проекти
+        </a>
+      </li>
+
+      <!-- 3. ПІДТРИМКА -->
+      <li>
+        <a href="#">
+          <span class="cozy-icon-box icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </span>
+          Підтримка
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<style>
+  /* Приємний сучасний шрифт з м'якими лініями */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+  /* Головна панель (верхня лінія) */
+  .cozy-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 10px 16px;
+    box-sizing: border-box;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+  }
+
+  /* Елегантна та м'яка бургер-кнопка */
+  .cozy-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 38px;
+    height: 38px;
+    background: #f4f4f6;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+  }
+
+  .cozy-burger:hover {
+    background: #eaeaea;
+  }
+
+  .cozy-burger:active {
+    transform: scale(0.95);
+  }
+
+  .cozy-burger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #2d3142;
+    border-radius: 2px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+  }
+
+  /* М'яка трансформація смужок */
+  .cozy-burger.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .cozy-burger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  .cozy-burger.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* ВНУТРІШНЯ ПАНЕЛЬ МЕНЮ */
+  .cozy-menu-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 12px;
+    right: 12px;
+    background: #ffffff;
+    border-radius: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .cozy-menu-panel.open {
+    max-height: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .cozy-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .cozy-nav-list li {
+    margin-bottom: 2px;
+  }
+  .cozy-nav-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Стиль посилань */
+  .cozy-nav-list a {
+    display: flex;
+    align-items: center;
+    color: #4c516d;
+    text-decoration: none;
+    padding: 10px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .cozy-nav-list a:hover {
+    background: #f4f4f6;
+    color: #1e2029;
+  }
+
+  /* Квадратики для іконок (пастельні кольори) */
+  .cozy-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    margin-right: 12px;
+  }
+
+  .cozy-icon-box svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-purple { background: #f3e8ff; color: #7c3aed; }
+  .icon-blue { background: #e0f2fe; color: #0284c7; }
+  .icon-green { background: #dcfce7; color: #16a34a; }
+
+  /* Хедер випадаючого списку */
+  .cozy-drop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cozy-drop-header a {
+    flex-grow: 1;
+  }
+
+  /* Стрілочка-трикутник */
+  .cozy-arrow {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cozy-arrow svg {
+    width: 14px;
+    height: 14px;
+    color: #94a3b8;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ВНУТРІШНІЙ ВИПАДАЮЧИЙ СПИСОК (СУБМЕНЮ) */
+  .cozy-sub-menu {
+    list-style: none;
+    margin: 0 8px;
+    padding: 0;
+    background: #fafafa;
+    border-radius: 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cozy-sub-menu a {
+    padding: 10px 16px 10px 24px;
+    color: #626784;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .sub-dot {
+    color: #cbd5e1;
+    margin-right: 8px;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Стани розгортання */
+  .cozy-dropdown.expanded .cozy-sub-menu {
+    max-height: 160px;
+    padding: 4px 0;
+    margin-bottom: 6px;
+  }
+
+  .cozy-dropdown.expanded .cozy-arrow svg {
+    transform: rotate(180deg);
+    color: #7c3aed;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const burgerBtn = document.getElementById('cozyMenuBtn');
+    const menuPanel = document.getElementById('cozyMenuPanel');
+    const dropdown = document.querySelector('.cozy-dropdown');
+    const arrowBtn = document.getElementById('cozyArrowBtn');
+
+    // Плавне відкриття всього меню
+    burgerBtn.addEventListener('click', () => {
+      burgerBtn.classList.toggle('active');
+      menuPanel.classList.toggle('open');
+    });
+
+    // Плавне відкриття внутрішнього списку
+    arrowBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      dropdown.classList.toggle('expanded');
+    });
+  });
+</script>
+
+
+
+  </body>
+  </html>
+
+</body>
+</html>
